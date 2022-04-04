@@ -93,7 +93,7 @@ const Box_OverView = styled.div`
 `
 const Box_Discription = styled.div`
     width: 60%;
-    margin:0 5px;
+    margin:0 6px;
 `
 const apiFilmes = axios.create({ 
     baseURL: "https://rickandmortyapi.com/api/character"
