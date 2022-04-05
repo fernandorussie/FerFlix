@@ -199,13 +199,13 @@ const apiFilmes = axios.create({
                   </Box_Img>
                   <Box_Discription>
                     <Title_Films>{item.title}</Title_Films>
-                    <Details>
+                    {/* <Details>
                       <Sumary>Sinopse</Sumary>
                       <Descrition>{item.overview}</Descrition>
-                    </Details>
-                    {/* <Box_OverView>
+                    </Details> */}
+                    <Box_OverView>
                         <p>{item.overview}</p>
-                    </Box_OverView> */}
+                    </Box_OverView>
                   </Box_Discription>
                   
               </Card_Films>
