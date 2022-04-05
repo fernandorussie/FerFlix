@@ -6,7 +6,7 @@ import { createGlobalStyle } from 'styled-components'
 const GlobalStyle = createGlobalStyle`
   *{
     input::placeholder {
-    color: black;
+    color: white;
   }
   }
 `
@@ -16,23 +16,23 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: red;
 `
 const Box_Header = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 `
-const Title = styled.p`
-
+const Title = styled.h2`
+  font-size: 39px;
+  color: white;
 `
 const SearchBar = styled.input`
     width: 25%;
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
     font-size:16px;
-    color: black;
+    color: white;
     outline: none;
 `
 const Box_Films = styled.div`
@@ -77,23 +77,58 @@ const Box_OverView = styled.div`
     overflow: auto;
     cursor: pointer;
 
-::-webkit-scrollbar {
-  width: 12px;
+ ::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+  background-color: #cecccc;
 }
-
+/*
 ::-webkit-scrollbar-track {
-  background: orange;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: blue;
-  border-radius: 20px;
-  border: 3px solid orange;
+  border-radius: 1px;
+  width: 5px;
+  height: 1px;
+} */
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    height: 3px;
+    background-color: blue; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb{
+	background-color:blue; 
+  height: 3px;
 }
 `
 const Box_Discription = styled.div`
     width: 60%;
     margin:0 5px;
+`
+const Details = styled.details`
+  margin:2vh 0 0 0vw;
+  font-family: 'Josefin Sans', sans-serif;
+`
+const Sumary = styled.summary`
+  font-size:1.3rem;
+  font-family: 'Josefin Sans', sans-serif;
+`
+const Descrition = styled.p`
+  width:100%;
+  font-size:1.3rem;
+  text-align:justify;
+  margin:2vh 0 0 0vw;
+  font-family: 'Josefin Sans', sans-serif;
 `
 const apiFilmes = axios.create({ 
     baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
@@ -145,13 +180,13 @@ const apiFilmes = axios.create({
       this.setState({
         filterFilm: filmFiltrados
       })
-    }
+    }    
     render() {
       return (
         <Container> 
           <GlobalStyle/>
             <Box_Header>
-                <h1>Filmes</h1>
+                <Title>Filmes</Title>
                 <SearchBar type="text" placeholder="Digite um filme"
                 onChange={this.filter}
                 />
@@ -164,9 +199,13 @@ const apiFilmes = axios.create({
                   </Box_Img>
                   <Box_Discription>
                     <Title_Films>{item.title}</Title_Films>
-                    <Box_OverView>
+                    <Details>
+                      <Sumary>Sinopse</Sumary>
+                      <Descrition>{item.overview}</Descrition>
+                    </Details>
+                    {/* <Box_OverView>
                         <p>{item.overview}</p>
-                    </Box_OverView>
+                    </Box_OverView> */}
                   </Box_Discription>
                   
               </Card_Films>

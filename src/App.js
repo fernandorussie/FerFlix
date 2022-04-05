@@ -5,7 +5,7 @@ import { BrowserRouter as Router,
   Link } 
   from 'react-router-dom'
 
-import Movies from './pages/teste'
+import Movies from './pages/Movies.js'
 import Series from './pages/Series'
 import Home from './pages/Home'
 
@@ -45,13 +45,14 @@ const Box_Nav = styled.div`
   display:flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: white;
+  background-color: ;
+  color: white;
 `
 const Nav = styled.nav`
   width: 60%;
   display:flex;
   justify-content: space-evenly;
-  background-color: yellow;
+  background-color: ;
 `
 export default class App extends Component {
   render() {
@@ -60,17 +61,17 @@ export default class App extends Component {
         <GlobalStyle />
         <Router>
           <Box_Nav>
-            <h1>FerFlix+</h1>
+            <h1>FerFlix</h1>
             <Nav>
-              <Links to="home">Inicio</Links>
-              <Links to="movies">Filmes</Links>
-              <Links to="series">Series</Links>
+              <Links to="/home">Inicio</Links>
+              <Links to="/movies">Filmes</Links>
+              <Links to="/series">Series</Links>
             </Nav>
           </Box_Nav>
           <Routes>
-            <Route path="home" element={<Home/>}/>
-            <Route path="movies" element={<Movies/>}/>
-            <Route path="series" element={<Series/>}/>
+            <Route path="/home" element={<Home/>}/>
+            <Route path="/movies" element={<Movies/>}/>
+            <Route path="/series" element={<Series/>}/>
           </Routes>
         </Router>
       </Container>
