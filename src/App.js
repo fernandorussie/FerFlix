@@ -4,6 +4,7 @@ import { BrowserRouter as Router,
   Route,
   Link } 
   from 'react-router-dom'
+import {Helmet} from "react-helmet";
 
 import Movies from './pages/Movies.js'
 import Series from './pages/Series'
@@ -58,6 +59,11 @@ export default class App extends Component {
   render() {
     return (
       <Container>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title>FerFlix</title>
+                <link rel="shortcut icon" href="https://i.pinimg.com/originals/6b/4a/73/6b4a738dd051ec314307435efa574807.png" type="image/x-icon"></link>
+        </Helmet>
         <GlobalStyle />
         <Router>
           <Box_Nav>
