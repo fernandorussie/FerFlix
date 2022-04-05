@@ -80,6 +80,11 @@ const Box_OverView = styled.div`
 const Box_Discription = styled.div`
     width: 60%;
     margin:0 5px;
+    /* overflow: hidden;
+    transition: all 0.4s;
+    ${Card_Serie}:hover &{
+      width: 60%;
+    } */
 `
 
 const apiSerie = axios.create({
@@ -149,6 +154,7 @@ export default class Serie extends Component {
                   </Box_Img>
                   <Box_Discription>
                     <Title_Serie>{item.name}</Title_Serie>
+                    <p>{item.genres}</p>
                     <Box_OverView>
                         <p>{item.overview}</p>
                     </Box_OverView>

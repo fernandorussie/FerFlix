@@ -95,6 +95,73 @@ const Box_Discription = styled.div`
     width: 60%;
     margin:0 5px;
 `
+
+
+
+
+
+
+
+const Card = styled.div`
+background-color: black;
+  -webkit-box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48); 
+  box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48);
+  border-radius: 10px;
+  width: 275px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+`
+const CardSpacing = styled.div`
+  padding-top: 200px;  
+  transition: padding 0.2s; 
+  ${Card}:hover &{
+    padding-top: 25px;  
+  } 
+`
+const CardContent = styled.div`
+  padding-top: 80px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%);
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
+  height: 100vh;
+  
+  color: white;
+`
+const Description = styled.div`
+ padding: 15px 0 0 0; 
+ color: white;
+`
+const H2 = styled.p`    
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;  
+`
+const TagBox = styled.div`
+  display: inline-block;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+`
+const Purple = styled.div`
+background-color: purple;
+`
+const Pink = styled.div`
+  background-color: pink;
+
+`
+
+
+
+
+
+
+
+
+
 const apiFilmes = axios.create({ 
     baseURL: "https://rickandmortyapi.com/api/character"
   })
@@ -145,7 +212,9 @@ const apiFilmes = axios.create({
       this.setState({
         filterFilm: filmFiltrados
       })
+      
     }
+    
     render() {
       return (
         <Container> 
@@ -158,18 +227,31 @@ const apiFilmes = axios.create({
             </Box_Header>
           <Box_Films>
             {this.state.filterFilm.map((item) => (
-              <Card_Films>
-                  <Box_Img>
-                    <Img_Films src={item.image} alt={` Imagem do filme ${item.title}`}/>
-                  </Box_Img>
-                  <Box_Discription>
-                    <Title_Films>{item.name}</Title_Films>
-                    <Box_OverView>
-                        <p>{item.overview}</p>
-                    </Box_OverView>
-                  </Box_Discription>
-                  
-              </Card_Films>
+              
+              <Card> 
+                <CardSpacing></CardSpacing>
+                <CardContent>
+                  <H2>{item.title}</H2>
+                  <p>⭐⭐⭐⭐⭐ 5/5</p>
+                  <div>
+                    <TagBox>Ação</TagBox>
+                    <TagBox>Ficção cientifica</TagBox>
+                  </div>
+                  <Description>{item.overview}</Description>
+                </CardContent>
+              </Card>
+              
+              // <Card_Films>
+              //     <Box_Img>
+              //       <Img_Films src={item.image} alt={` Imagem do filme ${item.title}`}/>
+              //     </Box_Img>
+              //     <Box_Discription>
+              //       <Title_Films>{item.name}</Title_Films>
+              //       <Box_OverView>
+              //           <p>{item.overview}</p>
+              //       </Box_OverView>
+              //     </Box_Discription>
+              // </Card_Films>
             ))}
           </Box_Films>
         </Container>

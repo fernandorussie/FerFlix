@@ -82,17 +82,6 @@ const Box_OverView = styled.div`
   height: 3px;
   background-color: #cecccc;
 }
-/*
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: blue;
-  border-radius: 1px;
-  width: 5px;
-  height: 1px;
-} */
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
@@ -130,6 +119,90 @@ const Descrition = styled.p`
   margin:2vh 0 0 0vw;
   font-family: 'Josefin Sans', sans-serif;
 `
+
+
+
+
+
+const Card = styled.div`
+background-color: black;
+  -webkit-box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48); 
+  box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48);
+  border-radius: 10px;
+  width: 275px;
+  height: 400px;
+  margin:18px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+
+  &:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url(${props => props.back});
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat;
+  background-color: blue;
+  opacity: 0.8;
+  }
+`
+const CardSpacing = styled.div`
+  padding-top: 200px;  
+  transition: all 0.6s 0.1s ease; 
+  ${Card}:hover &{
+    padding-top: 25px;  
+  } 
+`
+const CardContent = styled.div`
+  padding-top: 80px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%);
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
+  height: 100vh;
+  
+  color: white;
+`
+const Description = styled.div`
+ padding: 15px 0 0 0; 
+ color: white;
+`
+const H2 = styled.p`    
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem; 
+  transition: all 0.8s 0.1s ease; 
+  &:hover{
+    transform: scale(1.05, 1.01);
+  }
+`
+const TagBox = styled.div`
+  display: inline-block;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+`
+const Purple = styled.div`
+background-color: purple;
+`
+const Pink = styled.div`
+  background-color: pink;
+
+`
+
+
+
+
+
+
 const apiFilmes = axios.create({ 
     baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
   })
@@ -193,22 +266,20 @@ const apiFilmes = axios.create({
             </Box_Header>
           <Box_Films>
             {this.state.filterFilm.map((item) => (
-              <Card_Films>
-                  <Box_Img>
-                    <Img_Films src={item.poster_path} alt={` Imagem do filme ${item.title}`}/>
-                  </Box_Img>
-                  <Box_Discription>
-                    <Title_Films>{item.title}</Title_Films>
-                    {/* <Details>
-                      <Sumary>Sinopse</Sumary>
-                      <Descrition>{item.overview}</Descrition>
-                    </Details> */}
-                    <Box_OverView>
-                        <p>{item.overview}</p>
-                    </Box_OverView>
-                  </Box_Discription>
-                  
-              </Card_Films>
+
+
+              <Card back={item.poster_path}> 
+              <CardSpacing></CardSpacing>
+              <CardContent>
+                <H2>{item.title}</H2>
+                <p>⭐⭐⭐⭐⭐ 5/5</p>
+                <div>
+                  <TagBox>Ação</TagBox>
+                  <TagBox>Ficção cientifica</TagBox>
+                </div>
+                <Description>{item.overview}</Description>
+              </CardContent>
+              </Card>
             ))}
           </Box_Films>
         </Container>
