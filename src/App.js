@@ -101,13 +101,13 @@ export default class App extends Component {
           <Box_Nav>
             <Logo_Img src={Logo} alt=""/>
             <Nav>
-              <Links to="/FerFlix">Inicio</Links>
+              <Links to="/home">Inicio</Links>
               <Links to="/movies">Filmes</Links>
               <Links to="/series">Series</Links>
             </Nav>
           </Box_Nav>
           <Routes>
-            <Route path="/FerFlix" element={<Home/>}/>
+            <Route path="/home" element={<Home/>}/>
             <Route path="/movies" element={<Movies/>}/>
             <Route path="/series" element={<Series/>}/>
           </Routes>
