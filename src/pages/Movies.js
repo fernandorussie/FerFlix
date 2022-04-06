@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     color: white;
   }
   }
+  
 `
 const Container = styled.div`
   width: 80%;
@@ -137,6 +138,7 @@ background-color: black;
   z-index: 1;
   cursor: pointer;
 
+  transition: all 0.8s 0.1s ease;  
   &:before {
   content: "";
   position: absolute;
@@ -152,6 +154,8 @@ background-color: black;
   background-color: blue;
   opacity: 0.8;
   }
+  &:hover{
+  }
 `
 const CardSpacing = styled.div`
   padding-top: 200px;  
@@ -164,16 +168,46 @@ const CardContent = styled.div`
   padding-top: 80px;
   padding-left: 12px;
   padding-right: 12px;
-  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%);
-  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
-  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 15%);
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 15%);
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.9) 15%);
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.9) 15%);
   height: 100vh;
-  
   color: white;
+  transition: all 0.8s 0.1s ease; 
 `
 const Description = styled.div`
+height: 40%;
  padding: 15px 0 0 0; 
  color: white;
+ overflow: hidden;
+ cursor: pointer;
+
+ ${Card}:hover &{
+    overflow: auto;
+  }
+ ::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    height: 3px;
+    background-color: blue; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb{
+	background-color:rgba(255, 0, 0, 0.37); 
+  height: 3px;
+  width: 1px; 
+  }
 `
 const H2 = styled.p`    
   font-family: 'Montserrat', sans-serif;
@@ -211,7 +245,8 @@ const apiFilmes = axios.create({
    
     state = {
       filmList: [],
-      filterFilm: []
+      filterFilm: [],
+      noResults: true
     }
   
    async componentDidMount() { 
@@ -230,12 +265,12 @@ const apiFilmes = axios.create({
       })
       this.setState({
         filmList:filmes,
-        filterFilm:filmes
+        filterFilm:filmes,
       })
     }
   
     filter = (e) => {
-      const { filmList } = this.state
+      const { filmList, noResults } = this.state
   
       if(e.target.value === ""){
         this.setState({
@@ -248,10 +283,11 @@ const apiFilmes = axios.create({
       const filmFiltrados = filmList.filter((item) => {
         if(item.title.toLowerCase().includes(e.target.value.toLowerCase())){
           return true;
-        }
+        }         
       })
       this.setState({
-        filterFilm: filmFiltrados
+        filterFilm: filmFiltrados,
+        noResults: noResults
       })
     }    
     render() {
@@ -265,22 +301,31 @@ const apiFilmes = axios.create({
                 />
             </Box_Header>
           <Box_Films>
-            {this.state.filterFilm.map((item) => (
+          {this.state.noResults 
+              ? // filme não encontrado
+              this.state.filterFilm.map((item) => (
 
 
-              <Card back={item.poster_path}> 
-              <CardSpacing></CardSpacing>
-              <CardContent>
-                <H2>{item.title}</H2>
-                <p>⭐⭐⭐⭐⭐5/5</p>
-                <div>
-                  <TagBox>Ação</TagBox>
-                  <TagBox>Ficção cientifica</TagBox>
-                </div>
-                <Description>{item.overview}</Description>
-              </CardContent>
-              </Card>
-            ))}
+                <Card back={item.poster_path}> 
+                <CardSpacing></CardSpacing>
+                <CardContent>
+                  <H2>{item.title}</H2>
+                  {item.vote_average <= 6 ? 
+                    <p>⭐1/5</p>: 
+                    <p>⭐⭐⭐⭐⭐5/5</p>
+                   
+                  }
+                  <div>
+                    <TagBox>Ação</TagBox>
+                    <TagBox>Ficção cientifica</TagBox>
+                  </div>
+                  <Description>{item.overview}</Description>
+                </CardContent>
+                </Card>
+              ))
+               
+               : // filmes filtrados
+               <p>Filme não encontrado!</p>}
           </Box_Films>
         </Container>
       )

@@ -4,11 +4,14 @@ import { BrowserRouter as Router,
   Route,
   Link } 
   from 'react-router-dom'
-import {Helmet} from "react-helmet";
-import Icon from './assets/iconFF.png'
+
 import Movies from './pages/Movies.js'
 import Series from './pages/Series'
 import Home from './pages/Home'
+
+import {Helmet} from "react-helmet";
+import Icon from './assets/iconFF.png'
+import Logo from './assets/OriginalLogo.png'
 
 import styled from 'styled-components'
 import { createGlobalStyle } from 'styled-components'
@@ -19,6 +22,28 @@ const GlobalStyle = createGlobalStyle`
     padding:0;
     box-sizing:border-box;
   }
+  body{
+    overflow: overlay;
+  }
+  ::-webkit-scrollbar {
+  width: 7px;
+  height: 3px;
+  background-color: transparent;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    height: 3px;
+    background-color:rgba(255, 255, 255, 0.76); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
+}
 `
 const Links = styled(Link)` 
   color: white;
@@ -49,6 +74,13 @@ const Box_Nav = styled.div`
   background-color: ;
   color: white;
 `
+const Logo_Img = styled.img`
+  width: 20%;
+  cursor: pointer;
+  transition: 0.2s ease;
+  &:hover{
+    filter: drop-shadow(1px -1px 3px rgba(252, 252, 252, 0.49));  }
+`
 const Nav = styled.nav`
   width: 60%;
   display:flex;
@@ -61,13 +93,13 @@ export default class App extends Component {
       <Container>
         <Helmet>
                 <meta charSet="utf-8" />
-                <title>FerFlix</title>
+                <title>FERFLIX</title>
                 <link rel="shortcut icon" href={Icon} type="image/x-icon"></link>
         </Helmet>
         <GlobalStyle />
         <Router>
           <Box_Nav>
-            <h1>FerFlix</h1>
+            <Logo_Img src={Logo} alt=""/>
             <Nav>
               <Links to="/FerFlix">Inicio</Links>
               <Links to="/movies">Filmes</Links>
