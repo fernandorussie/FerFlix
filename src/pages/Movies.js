@@ -240,23 +240,45 @@ const Pink = styled.div`
 const apiFilmes = axios.create({ 
     baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
   })
+
+  const apiGenres = axios.create({ 
+    baseURL: "https://api.themoviedb.org/3/genre/movie/list?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
+  })  
   
   export default class Filmes extends Component {
    
     state = {
       filmList: [],
       filterFilm: [],
+      genres: [ {id: 28, name: 'Ação'}
+      1: {id: 12, name: 'Aventura'}
+      2: {id: 16, name: 'Animação'}
+      3: {id: 35, name: 'Comédia'}
+      4: {id: 80, name: 'Crime'}
+      5: {id: 99, name: 'Documentário'}
+      6: {id: 18, name: 'Drama'}
+      7: {id: 10751, name: 'Família'}
+      8: {id: 14, name: 'Fantasia'}
+      9: {id: 36, name: 'História'}
+      10: {id: 27, name: 'Terror'}
+      11: {id: 10402, name: 'Música'}
+      12: {id: 9648, name: 'Mistério'}
+      13: {id: 10749, name: 'Romance'}
+      14: {id: 878, name: 'Ficção científica'}
+      15: {id: 10770, name: 'Cinema TV'}
+      16: {id: 53, name: 'Thriller'}
+      17: {id: 10752, name: 'Guerra'}
+      18: {id: 37, name: 'Faroeste'}],
       switchRating:"",
       noResults: true
     }
   
    async componentDidMount() { 
        this.getFilmes();
+       this.getGenres();
     }
     getFilmes = async () => {
       const response = await apiFilmes.get()
-  
-      console.log(response)
   
       const filmes = response.data.results.map((item) => {
         return {
@@ -269,7 +291,20 @@ const apiFilmes = axios.create({
         filterFilm:filmes,
       })
     }
+    getGenres = async () => {
+      const response = await apiGenres.get()
   
+      console.log(response)
+  
+      const genres = response.data.genres.map((item) => {
+        return {
+          ...item
+        }
+      })
+      this.setState({
+        listGenres:genres
+      })
+    }
     filter = (e) => {
       const { filmList, noResults } = this.state
   
@@ -296,7 +331,8 @@ const apiFilmes = axios.create({
         <Container> 
           <GlobalStyle/>
             <Box_Header>
-                <Title>Filmes</Title>
+                <Title>Filmes
+                </Title>
                 <SearchBar type="text" placeholder="Digite um filme"
                 onChange={this.filter}
                 />
@@ -325,7 +361,20 @@ const apiFilmes = axios.create({
                     <p>Título sem rank</p>
                   }
                   <div>
-                    <TagBox>Ação</TagBox>
+                    
+                    <TagBox>
+                      {item.genre_ids[0] === 12 ?
+                      <p>Ficção Cientifica e Fantasia </p>:
+                      item.genre_ids[0] === 18 ?
+                      <p>Drama</p>:
+                      item.genre_ids[0] === 28 ?
+                      <p>Ação e Aventura</p>:
+                      item.genre_ids[0] === 9648 ?
+                      <p>Mistério</p>:
+                      ""
+                      }
+                      
+                    </TagBox>
                     <TagBox>Ficção cientifica</TagBox>
                   </div>
                   <Description>{item.overview}</Description>

@@ -59,17 +59,15 @@ const apiFilmes = axios.create({
 export default class Home extends Component {
   state = {
     serieList: [],
-    filterSerie: [],
-    filmList: [],
-    filterFilm: [],
+    filmList: []
   }
 
  async componentDidMount() { 
      this.getFilmes();
+     this.getSeries();
   }
   getFilmes = async () => {
     const response = await apiFilmes.get()
-    console.log(response)
 
     const filmes = response.data.results.map((item) => {
       return {
@@ -78,36 +76,30 @@ export default class Home extends Component {
       }
     })
     this.setState({
-      filmList:filmes,
-      filterFilm:filmes
+      filmList:filmes
     })
   }
 
-  // async componentDidMount() {
-  //     this.getSeries();
-  // }
-  // getSeries = async () => {
-  //   const response = await apiSerie.get()
-  //   console.log(response)
+  getSeries = async () => {
+    const response = await apiSerie.get()
 
-  //   const series = response.data.results.map((item) => {
-  //     return {
-  //       ...item,
-  //       backdrop_path: `https://image.tmdb.org/t/p/w400/${item.backdrop_path}`
-  //     }
-  //   })
-  //   this.setState({
-  //     serieList: series,
-  //     filterSerie: series
-  //   })
-  // }
+    const series = response.data.results.map((item) => {
+      return {
+        ...item,
+        backdrop_path: `https://image.tmdb.org/t/p/w400/${item.backdrop_path}`
+      }
+    })
+    this.setState({
+      serieList: series
+    })
+  }
   render() {
     return (
       <Container>
 
         <Div>
           <Title>Veja aqui os melhores filmes da semana!</Title>
-          <Carousels autoGenerateStyleTag={true} renderBottomCenterControls={false} wrapAround={true} slidesToShow={3} autoplay={true} autoplayInterval={2000} renderCenterLeftControls={({ previousSlide }) => (
+          <Carousels autoGenerateStyleTag={true} renderBottomCenterControls={false} wrapAround={true} slidesToShow={3} autoplay={true} autoplayInterval={2500} renderCenterLeftControls={({ previousSlide }) => (
                     <Arrow onClick={previousSlide} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></Arrow>
                 )}
                 renderCenterRightControls={({ nextSlide }) => (
@@ -115,7 +107,7 @@ export default class Home extends Component {
                     xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></Arrow>
                 )}
           >
-            {this.state.filterFilm.map((item) => (
+            {this.state.filmList.map((item) => (
                 <Fig>
                   <Img src={item.backdrop_path} alt={` Imagem do filme ${item.title}`}/>
                 </Fig>
@@ -123,9 +115,9 @@ export default class Home extends Component {
           </Carousels>
         </Div>
         
-        {/* <Div>
+        <Div>
           <Title>Veja aqui as melhores séries da semana!</Title>
-          <Carousels autoGenerateStyleTag={true} renderBottomCenterControls={false} wrapAround={true} slidesToShow={3} autoplay={true} autoplayInterval={2000} renderCenterLeftControls={({ previousSlide }) => (
+          <Carousels autoGenerateStyleTag={true} renderBottomCenterControls={false} wrapAround={true} slidesToShow={3} autoplay={true} autoplayInterval={2500} renderCenterLeftControls={({ previousSlide }) => (
                     <Arrow onClick={previousSlide} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></Arrow>
                     )}
                     renderCenterRightControls={({ nextSlide }) => (
@@ -133,13 +125,13 @@ export default class Home extends Component {
                         xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></Arrow>
                 )}
           >
-            {this.state.filterSerie.map((item) => (
+            {this.state.serieList.map((item) => (
                 <Fig>
                   <Img src={item.backdrop_path} alt={` Imagem da série ${item.name}`}/>
                 </Fig>
             ))}
           </Carousels>
-        </Div> */}
+        </Div>
       </Container>
     )
   }
