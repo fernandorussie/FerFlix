@@ -5,7 +5,7 @@ import { BrowserRouter as Router,
   Link } 
   from 'react-router-dom'
 import {Helmet} from "react-helmet";
-
+import Icon from './assets/iconFF.png'
 import Movies from './pages/Movies.js'
 import Series from './pages/Series'
 import Home from './pages/Home'
@@ -62,7 +62,7 @@ export default class App extends Component {
         <Helmet>
                 <meta charSet="utf-8" />
                 <title>FerFlix</title>
-                <link rel="shortcut icon" href="https://i.pinimg.com/originals/6b/4a/73/6b4a738dd051ec314307435efa574807.png" type="image/x-icon"></link>
+                <link rel="shortcut icon" href={Icon} type="image/x-icon"></link>
         </Helmet>
         <GlobalStyle />
         <Router>

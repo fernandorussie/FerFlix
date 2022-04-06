@@ -272,7 +272,7 @@ const apiFilmes = axios.create({
               <CardSpacing></CardSpacing>
               <CardContent>
                 <H2>{item.title}</H2>
-                <p>⭐⭐⭐⭐⭐ 5/5</p>
+                <p>⭐⭐⭐⭐⭐5/5</p>
                 <div>
                   <TagBox>Ação</TagBox>
                   <TagBox>Ficção cientifica</TagBox>
