@@ -246,6 +246,7 @@ const apiFilmes = axios.create({
     state = {
       filmList: [],
       filterFilm: [],
+      switchRating:"",
       noResults: true
     }
   
@@ -289,7 +290,7 @@ const apiFilmes = axios.create({
         filterFilm: filmFiltrados,
         noResults: noResults
       })
-    }    
+    }   
     render() {
       return (
         <Container> 
@@ -310,10 +311,18 @@ const apiFilmes = axios.create({
                 <CardSpacing></CardSpacing>
                 <CardContent>
                   <H2>{item.title}</H2>
-                  {item.vote_average <= 6 ? 
-                    <p>⭐1/5</p>: 
-                    <p>⭐⭐⭐⭐⭐5/5</p>
-                   
+                 
+                  {item.vote_average >=8 ? 
+                    <p>⭐⭐⭐⭐⭐</p>: 
+                    item.vote_average >=7 ?
+                    <p>⭐⭐⭐⭐</p>: 
+                    item.vote_average >=6 ?
+                    <p>⭐⭐⭐</p>: 
+                    item.vote_average >=5 ?
+                    <p>⭐⭐</p>: 
+                    item.vote_average >=4 ?
+                    <p>⭐</p>: 
+                    <p>Título sem rank</p>
                   }
                   <div>
                     <TagBox>Ação</TagBox>
