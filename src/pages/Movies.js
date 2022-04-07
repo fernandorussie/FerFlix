@@ -12,18 +12,18 @@ const GlobalStyle = createGlobalStyle`
   
 `
 const Container = styled.div`
-  width: 80%;
+  width: 84%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `
-const Box_Header = styled.div`
+const BoxSearch = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
 `
-const Title = styled.h2`
+const TitlePage = styled.h2`
   font-size: 39px;
   color: white;
 `
@@ -36,109 +36,28 @@ const SearchBar = styled.input`
     color: white;
     outline: none;
 `
-const Box_Films = styled.div`
+const BoxCards = styled.div`
     width: 100%;
     margin:20px 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 `
-const Card_Films = styled.div`
-    width: 45%;
-    margin:10px;
-    padding:5px;
-    display:flex;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color:white;
-`
-const Title_Films = styled.p`
-    margin:10px auto;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.7s;
-    &:hover{
-        opacity: 0.8;
-    }
-`
-const Box_Img = styled.figure`
-    
-`
-const Img_Films = styled.img`
-    width: 150px;
-    cursor: pointer;
-    transition: all 0.4s;
-    &:hover{
-        opacity: 0.8;
-    }
-`
-const Box_OverView = styled.div`
-    height: 150px;
-    overflow: auto;
-    cursor: pointer;
-
- ::-webkit-scrollbar {
-  width: 7px;
-  height: 3px;
-  background-color: #cecccc;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-}
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    height: 3px;
-    background-color: blue; 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-}
-::-webkit-scrollbar-thumb{
-	background-color:blue; 
-  height: 3px;
-}
-`
-const Box_Discription = styled.div`
-    width: 60%;
-    margin:0 5px;
-`
-const Details = styled.details`
-  margin:2vh 0 0 0vw;
-  font-family: 'Josefin Sans', sans-serif;
-`
-const Sumary = styled.summary`
-  font-size:1.3rem;
-  font-family: 'Josefin Sans', sans-serif;
-`
-const Descrition = styled.p`
-  width:100%;
-  font-size:1.3rem;
-  text-align:justify;
-  margin:2vh 0 0 0vw;
-  font-family: 'Josefin Sans', sans-serif;
-`
-
-
-
-
-
 const Card = styled.div`
 background-color: black;
   -webkit-box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48); 
   box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.48);
   border-radius: 10px;
-  width: 275px;
+  width: 250px;
   height: 400px;
-  margin:18px;
+  margin:12px;
   overflow: hidden;
   position: relative;
   z-index: 1;
   cursor: pointer;
 
-  transition: all 0.8s 0.1s ease;  
+  transition: all 0.8s 0.1s ease; 
+
   &:before {
   content: "";
   position: absolute;
@@ -175,7 +94,22 @@ const CardContent = styled.div`
   color: white;
   transition: all 0.8s 0.1s ease; 
 `
-const Description = styled.div`
+const TitleContent = styled.p`    
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem; 
+  transition: all 0.8s 0.1s ease; 
+  &:hover{
+    transform: scale(1.05, 1.01);
+  }
+`
+const BoxGenres = styled.div`
+  display: inline-block;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+`
+const DescriptionContent = styled.div`
 height: 40%;
  padding: 15px 0 0 0; 
  color: white;
@@ -209,28 +143,6 @@ height: 40%;
   width: 1px; 
   }
 `
-const H2 = styled.p`    
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem; 
-  transition: all 0.8s 0.1s ease; 
-  &:hover{
-    transform: scale(1.05, 1.01);
-  }
-`
-const TagBox = styled.div`
-  display: inline-block;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 5px;
-  font-size: 0.75rem;
-`
-const Purple = styled.div`
-background-color: purple;
-`
-const Pink = styled.div`
-  background-color: pink;
-
-`
 
 
 
@@ -240,73 +152,57 @@ const Pink = styled.div`
 const apiFilmes = axios.create({ 
     baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
   })
-
-  const apiGenres = axios.create({ 
-    baseURL: "https://api.themoviedb.org/3/genre/movie/list?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
-  })  
   
   export default class Filmes extends Component {
    
     state = {
       filmList: [],
       filterFilm: [],
-      genres: [ {id: 28, name: 'Ação'}
-      1: {id: 12, name: 'Aventura'}
-      2: {id: 16, name: 'Animação'}
-      3: {id: 35, name: 'Comédia'}
-      4: {id: 80, name: 'Crime'}
-      5: {id: 99, name: 'Documentário'}
-      6: {id: 18, name: 'Drama'}
-      7: {id: 10751, name: 'Família'}
-      8: {id: 14, name: 'Fantasia'}
-      9: {id: 36, name: 'História'}
-      10: {id: 27, name: 'Terror'}
-      11: {id: 10402, name: 'Música'}
-      12: {id: 9648, name: 'Mistério'}
-      13: {id: 10749, name: 'Romance'}
-      14: {id: 878, name: 'Ficção científica'}
-      15: {id: 10770, name: 'Cinema TV'}
-      16: {id: 53, name: 'Thriller'}
-      17: {id: 10752, name: 'Guerra'}
-      18: {id: 37, name: 'Faroeste'}],
+      genres: [ 
+       {id: 28, name: 'Ação'}
+      ,{id: 12, name: 'Aventura'}
+      ,{id: 16, name: 'Animação'}
+      ,{id: 35, name: 'Comédia'}
+      ,{id: 80, name: 'Crime'}
+      ,{id: 99, name: 'Documentário'}
+      ,{id: 18, name: 'Drama'}
+      ,{id: 10751, name: 'Família'}
+      ,{id: 14, name: 'Fantasia'}
+      ,{id: 36, name: 'História'}
+      ,{id: 27, name: 'Terror'}
+      ,{id: 10402, name: 'Música'}
+      ,{id: 9648, name: 'Mistério'}
+      ,{id: 10749, name: 'Romance'}
+      ,{id: 878, name: 'Ficção científica'}
+      ,{id: 10770, name: 'Cinema TV'}
+      ,{id: 53, name: 'Thriller'}
+      ,{id: 10752, name: 'Guerra'}
+      ,{id: 37, name: 'Faroeste'}],
       switchRating:"",
       noResults: true
     }
   
    async componentDidMount() { 
        this.getFilmes();
-       this.getGenres();
     }
     getFilmes = async () => {
       const response = await apiFilmes.get()
-  
+      console.log(response.data.results)
+
       const filmes = response.data.results.map((item) => {
         return {
           ...item,
           poster_path: `https://image.tmdb.org/t/p/w400/${item.poster_path}`
         }
       })
+      
       this.setState({
         filmList:filmes,
         filterFilm:filmes,
       })
     }
-    getGenres = async () => {
-      const response = await apiGenres.get()
-  
-      console.log(response)
-  
-      const genres = response.data.genres.map((item) => {
-        return {
-          ...item
-        }
-      })
-      this.setState({
-        listGenres:genres
-      })
-    }
     filter = (e) => {
-      const { filmList, noResults } = this.state
+      const { filmList } = this.state
   
       if(e.target.value === ""){
         this.setState({
@@ -314,39 +210,35 @@ const apiFilmes = axios.create({
         })
         return;
       }
-      console.log(e.target.value)
   
       const filmFiltrados = filmList.filter((item) => {
         if(item.title.toLowerCase().includes(e.target.value.toLowerCase())){
           return true;
-        }         
+        }        
       })
+      
       this.setState({
         filterFilm: filmFiltrados,
-        noResults: noResults
       })
-    }   
+    }
+
     render() {
       return (
         <Container> 
           <GlobalStyle/>
-            <Box_Header>
-                <Title>Filmes
-                </Title>
+            <BoxSearch>
+                <TitlePage>Filmes
+                </TitlePage>
                 <SearchBar type="text" placeholder="Digite um filme"
                 onChange={this.filter}
                 />
-            </Box_Header>
-          <Box_Films>
-          {this.state.noResults 
-              ? // filme não encontrado
-              this.state.filterFilm.map((item) => (
-
-
+            </BoxSearch>
+          <BoxCards>
+            {this.state.filterFilm.map((item) => (
                 <Card back={item.poster_path}> 
                 <CardSpacing></CardSpacing>
                 <CardContent>
-                  <H2>{item.title}</H2>
+                  <TitleContent>{item.title}</TitleContent>
                  
                   {item.vote_average >=8 ? 
                     <p>⭐⭐⭐⭐⭐</p>: 
@@ -362,29 +254,35 @@ const apiFilmes = axios.create({
                   }
                   <div>
                     
-                    <TagBox>
-                      {item.genre_ids[0] === 12 ?
-                      <p>Ficção Cientifica e Fantasia </p>:
-                      item.genre_ids[0] === 18 ?
-                      <p>Drama</p>:
-                      item.genre_ids[0] === 28 ?
-                      <p>Ação e Aventura</p>:
-                      item.genre_ids[0] === 9648 ?
-                      <p>Mistério</p>:
-                      ""
-                      }
+                    <BoxGenres>
+                      {this.state.genres.map((cpf) => (
+                        cpf.id === item.genre_ids[0]?
+                        <p>{cpf.name}</p>:
+                        null
+                      ))}
+                      {/* {this.state.genres[0].id === item.genre_ids[0]||item.genre_ids[1]? this.state.genres.name[]: item.genre_ids[0]} */}
                       
-                    </TagBox>
-                    <TagBox>Ficção cientifica</TagBox>
+                    </BoxGenres>
+                    <BoxGenres>
+                    {this.state.genres.map((cpf) => (
+                        cpf.id === item.genre_ids[2]?
+                        <p>{cpf.name}</p>:
+                        null
+                      ))}
+                    </BoxGenres>
+                    <BoxGenres>
+                    {this.state.genres.map((cpf) => (
+                        cpf.id === item.genre_ids[3]?
+                        <p>{cpf.name}</p>:
+                        null
+                      ))}
+                    </BoxGenres>
                   </div>
-                  <Description>{item.overview}</Description>
+                  <DescriptionContent>{item.overview}</DescriptionContent>
                 </CardContent>
                 </Card>
-              ))
-               
-               : // filmes filtrados
-               <p>Filme não encontrado!</p>}
-          </Box_Films>
+              ))}
+          </BoxCards>
         </Container>
       )
     }
