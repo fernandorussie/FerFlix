@@ -54,7 +54,7 @@ const apiSerie = axios.create({
   baseURL: "https://api.themoviedb.org/3/tv/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
 })
 const apiFilmes = axios.create({ 
-  baseURL: "https://api.themoviedb.org/3/movie/popular?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
+  baseURL: "https://api.themoviedb.org/3/trending/all/day?api_key=0beb9ac2fc4292144eeffa5c1b2bbcf2&language=pt-BR"
 })
 export default class Home extends Component {
   state = {
@@ -68,7 +68,7 @@ export default class Home extends Component {
   }
   getFilmes = async () => {
     const response = await apiFilmes.get()
-
+    console.log(response.data)
     const filmes = response.data.results.map((item) => {
       return {
         ...item,
@@ -108,9 +108,12 @@ export default class Home extends Component {
                 )}
           >
             {this.state.filmList.map((item) => (
+              <div>
                 <Fig>
                   <Img src={item.backdrop_path} alt={` Imagem do filme ${item.title}`}/>
                 </Fig>
+                {/* <p>{item.title === item.title? item.title:item.name}</p> */}
+              </div>
             ))}
           </Carousels>
         </Div>

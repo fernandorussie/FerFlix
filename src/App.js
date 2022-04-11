@@ -45,16 +45,6 @@ const GlobalStyle = createGlobalStyle`
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
 }
 `
-const Links = styled(Link)` 
-  color: white;
-  text-decoration: none;
-  transition: 0.3s;
-  margin: 20px;
-  &:hover {
-    color: #fdb927;
-    text-decoration: underline;
-  }
-`
 const Container = styled.div`
   max-width: 1920px;
   width: 100%;
@@ -82,10 +72,22 @@ const Logo_Img = styled.img`
     filter: drop-shadow(1px -1px 3px rgba(252, 252, 252, 0.49));  }
 `
 const Nav = styled.nav`
-  width: 60%;
+  width: 30%;
   display:flex;
   justify-content: space-evenly;
   background-color: ;
+`
+const Links = styled(Link)` 
+  font-size: 2vw;
+  font-w: 900;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+  margin: 20px;
+  &:hover {
+    color: #fdb927;
+    text-decoration: underline;
+  }
 `
 export default class App extends Component {
   render() {

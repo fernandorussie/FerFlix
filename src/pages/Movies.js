@@ -178,8 +178,7 @@ const apiFilmes = axios.create({
       ,{id: 53, name: 'Thriller'}
       ,{id: 10752, name: 'Guerra'}
       ,{id: 37, name: 'Faroeste'}],
-      switchRating:"",
-      noResults: true
+      errorMessage: false,
     }
   
    async componentDidMount() { 
@@ -198,15 +197,15 @@ const apiFilmes = axios.create({
       
       this.setState({
         filmList:filmes,
-        filterFilm:filmes,
+        filterFilm:filmes
       })
     }
     filter = (e) => {
-      const { filmList } = this.state
+      const { filmList , errorMessage} = this.state
   
       if(e.target.value === ""){
         this.setState({
-          filterFilm: filmList
+          filterFilm: filmList,
         })
         return;
       }
@@ -214,7 +213,7 @@ const apiFilmes = axios.create({
       const filmFiltrados = filmList.filter((item) => {
         if(item.title.toLowerCase().includes(e.target.value.toLowerCase())){
           return true;
-        }        
+        }   
       })
       
       this.setState({
@@ -233,56 +232,57 @@ const apiFilmes = axios.create({
                 onChange={this.filter}
                 />
             </BoxSearch>
-          <BoxCards>
-            {this.state.filterFilm.map((item) => (
+            <BoxCards>
+              {this.state.filterFilm.map((item) => (
                 <Card back={item.poster_path}> 
-                <CardSpacing></CardSpacing>
-                <CardContent>
-                  <TitleContent>{item.title}</TitleContent>
-                 
-                  {item.vote_average >=8 ? 
-                    <p>⭐⭐⭐⭐⭐</p>: 
-                    item.vote_average >=7 ?
-                    <p>⭐⭐⭐⭐</p>: 
-                    item.vote_average >=6 ?
-                    <p>⭐⭐⭐</p>: 
-                    item.vote_average >=5 ?
-                    <p>⭐⭐</p>: 
-                    item.vote_average >=4 ?
-                    <p>⭐</p>: 
-                    <p>Título sem rank</p>
-                  }
-                  <div>
-                    
-                    <BoxGenres>
+                  <CardSpacing></CardSpacing>
+                  <CardContent>
+                    <TitleContent>
+                      {item.title}
+                    </TitleContent>
+                  
+                    {item.vote_average >=8 ? 
+                      <p>⭐⭐⭐⭐⭐</p>: 
+                      item.vote_average >=7 ?
+                      <p>⭐⭐⭐⭐</p>: 
+                      item.vote_average >=6 ?
+                      <p>⭐⭐⭐</p>: 
+                      item.vote_average >=5 ?
+                      <p>⭐⭐</p>: 
+                      item.vote_average >=4 ?
+                      <p>⭐</p>: 
+                      <p>Título sem rank</p>
+                    }
+                    <div>
+                      <BoxGenres>
+                        {this.state.genres.map((cpf) => (
+                          cpf.id === item.genre_ids[0]?
+                          <p>{cpf.name}</p>:
+                          null
+                        ))}
+                      </BoxGenres>
+                      <BoxGenres>
                       {this.state.genres.map((cpf) => (
-                        cpf.id === item.genre_ids[0]?
-                        <p>{cpf.name}</p>:
-                        null
-                      ))}
-                      {/* {this.state.genres[0].id === item.genre_ids[0]||item.genre_ids[1]? this.state.genres.name[]: item.genre_ids[0]} */}
-                      
-                    </BoxGenres>
-                    <BoxGenres>
-                    {this.state.genres.map((cpf) => (
-                        cpf.id === item.genre_ids[2]?
-                        <p>{cpf.name}</p>:
-                        null
-                      ))}
-                    </BoxGenres>
-                    <BoxGenres>
-                    {this.state.genres.map((cpf) => (
-                        cpf.id === item.genre_ids[3]?
-                        <p>{cpf.name}</p>:
-                        null
-                      ))}
-                    </BoxGenres>
-                  </div>
-                  <DescriptionContent>{item.overview}</DescriptionContent>
-                </CardContent>
+                          cpf.id === item.genre_ids[2]?
+                          <p>{cpf.name}</p>:
+                          null
+                        ))}
+                      </BoxGenres>
+                      <BoxGenres>
+                      {this.state.genres.map((cpf) => (
+                          cpf.id === item.genre_ids[3]?
+                          <p>{cpf.name}</p>:
+                          null
+                        ))}
+                        </BoxGenres>
+                    </div>
+                    <DescriptionContent>
+                      {item.overview}
+                    </DescriptionContent>
+                  </CardContent>
                 </Card>
-              ))}
-          </BoxCards>
+                ))}
+            </BoxCards>
         </Container>
       )
     }

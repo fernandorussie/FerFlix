@@ -230,7 +230,7 @@ export default class Serie extends Component {
               <CardSpacing></CardSpacing>
               <CardContent>
                 <TitleContent>
-                  {item.title}
+                  {item.name}
                 </TitleContent>
 
                 {item.vote_average >=8 ? 
